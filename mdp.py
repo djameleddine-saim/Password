@@ -38,23 +38,20 @@ while True:
         # Crypter le mot de passe en utilisant l'algorithme SHA-256
         hashed_password = hashlib.sha256(password.encode()).hexdigest()
 
-        # Demande à l'utilisateur d'entrer un nom
-        name = input("saisie le nom d'utilisateur : ")
-
         # vérifier si le mot de passe existe déjà dans les valeurs du dictionnaire
-        if name in passwords:
-            if hashed_password in passwords[name]:
+        if password in passwords:
+            if hashed_password in passwords[password]:
                 print("Ce mot de passe existe déjà.")
-            elif hashed_password not in passwords[name]:
+            elif hashed_password not in passwords[password]:
 
                 # Ajouter le mot de passe et le mot de passe crypté au dictionnaire
-                passwords[name] += [hashed_password]
+                passwords[password] += [hashed_password]
                 print("mot de pass: ", password)
                 print("Mot de passe crypté: ", hashed_password)
                 print("Mot de passe enregistré!", end='\n')
 
         else:
-            passwords[name] = [hashed_password]
+            passwords[password] = [hashed_password]
         # Demander à l'utilisateur s'il souhaite entrer un autre mot de passe
         repeat = input("Voulez-vous entrer un autre mot de passe? (o/n)")
         if repeat == 'n':
@@ -64,3 +61,4 @@ while True:
 with open('passwords.json', 'w') as f:
     # l'option separators et l'option indent pour séparer les différents mots de passe enregistrés dans le fichier JSON
     json.dump(passwords, f, separators=(',', ': '), indent=4)
+
